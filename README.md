@@ -12,7 +12,6 @@ run the container using
     docker run --name openfortivpn \
     -p 8020:8020 \
     -e VPN_HOST="<vpn-server>" \
-    -v ./tmp:/tmp \
     --network openfortivpn \
     --ip=172.21.0.2 \
     --privileged --cap-add=NET_ADMIN \
