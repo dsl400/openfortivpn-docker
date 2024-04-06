@@ -45,7 +45,7 @@ sleep 1
 mkfifo mypipe
 
 openfortivpn $VPN_HOST \
-    --trusted-cert SERVER_SIGNATURE \
+    --trusted-cert $SERVER_SIGNATURE \
     --cookie="SVPNCOOKIE=${cookie_value}" > mypipe 2>&1 &
 
 echo "<!DOCTYPE html><html><head><body><pre>"
