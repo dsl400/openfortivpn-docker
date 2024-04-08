@@ -9,6 +9,7 @@ this container is for SAML authentication
 
 run the container using 
 ```bash
+    docker network create --subnet=172.21.0.0/16 openfortivpn
     docker run --name openfortivpn \
     -p 8020:8020 \
     -e VPN_HOST="<vpn-server>" \
@@ -30,7 +31,7 @@ echo >> /etc/docker/daemon.json << EOM
 EOM
 ```
 
-add routes
+add routes in linux
 ```bash
 sudo ip route add 172.17.0.0/16 via 172.21.0.2
 sudo ip route replace 172.17.0.0/16 via 172.21.0.2
@@ -40,4 +41,9 @@ persist routes
 ```bash
 echo "ip route add 172.17.0.0/16 via 172.21.0.2" >> /etc/rc.local
 echo "ip route replace 172.17.0.0/16 via 172.21.0.2" >> /etc/rc.local
+```
+
+add persisted route in windows 
+```bash
+route add 172.17.0.0 mask 255.255.0.0 172.21.0.2 -p
 ```
