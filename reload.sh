@@ -48,7 +48,7 @@ while pgrep openfortivpn > /dev/null; do sleep 1; done
 mkfifo mypipe
 
 openfortivpn $VPN_HOST \
-    --trusted-cert $SERVER_SIGNATURE \
+    --trusted-cert=$SERVER_SIGNATURE \
     --cookie="SVPNCOOKIE=${cookie_value}" > mypipe 2>&1 &
 echo "${GREEN}<pre>"
 timeout $TIMEOUT cat mypipe
