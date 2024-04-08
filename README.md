@@ -29,7 +29,9 @@ cat << EOM >> /etc/docker/daemon.json
  "bip": "172.18.0.1/16"
 }
 EOM
+docker service restart
 ```
+
 
 add routes in linux
 ```bash
