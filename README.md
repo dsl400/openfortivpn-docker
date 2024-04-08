@@ -24,7 +24,7 @@ run the container using
 if docker uses 172.17.0.0/16 any you need to route to 172.17.0.0/16 via fortivpn
 
 ```bash
-echo >> /etc/docker/daemon.json << EOM
+cat << EOM >> /etc/docker/daemon.json
 {
  "bip": "172.18.0.1/16"
 }
