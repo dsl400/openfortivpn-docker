@@ -26,7 +26,7 @@ fi
 response=$(curl -k -i -s \
     -H "$USER_AGENT" \
     --no-keepalive \
-    https://forti.bento.ro/remote/saml/auth_id?id=${session_id})
+    ${VPN_HOST}/remote/saml/auth_id?id=${session_id})
 
 
 if [[ ! $response =~ ^HTTP/1\.1\ 200\ OK ]]; then
