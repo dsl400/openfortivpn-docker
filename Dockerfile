@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y \
     busybox \
     openfortivpn \
     iptables \
+    iproute2 \
     && rm -rf /var/lib/apt/lists/*
 
 RUN ln -s /bin/busybox /bin/nc

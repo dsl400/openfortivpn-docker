@@ -10,7 +10,7 @@ RED="<!DOCTYPE html><html><head><style>body{color: red; background-color:black; 
 
 read -r line
 
-if [[ ! $line =~ ^GET\ \/\?\id=[a-zA-Z0-9]+\ HTTP/1\.1 ]]; then
+if [[ ! $line =~ ^GET\ \/\?\id=[a-zA-Z0-9\-]+\ HTTP/1\.1 ]]; then
     echo "${RED}<h1>bad request</h1>"
     exit 1
 fi
@@ -18,7 +18,7 @@ fi
 
 
 session_id=$(echo $line | cut -d'=' -f2 | cut -d' ' -f1)
-if ! echo "$session_id" | grep -Eq '^[a-zA-Z0-9]{1,64}$'; then
+if ! echo "$session_id" | grep -Eq '^[a-zA-Z0-9\-]{1,128}$'; then
     echo "${RED}<h1>Invalid session_id: $session_id</h1>"
     exit 1
 fi
@@ -47,12 +47,21 @@ while pgrep openfortivpn > /dev/null; do sleep 1; done
 
 mkfifo mypipe
 
+
+ip route add 172.17.0.0/16 via 172.21.0.2
+ip route replace 172.17.0.0/16 via 172.21.0.2
+
+
+
 openfortivpn $VPN_HOST \
     --trusted-cert=$SERVER_SIGNATURE \
     --cookie="SVPNCOOKIE=${cookie_value}" > mypipe 2>&1 &
 echo "${GREEN}<pre>"
 timeout $TIMEOUT cat mypipe
 rm mypipe
+
+
+
 echo "</pre></body></html>"
 
 exit 0
