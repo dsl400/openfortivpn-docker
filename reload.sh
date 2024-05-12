@@ -47,14 +47,9 @@ while pgrep openfortivpn > /dev/null; do sleep 1; done
 
 mkfifo mypipe
 
-
-ip route add 172.17.0.0/16 via 172.21.0.2
-ip route replace 172.17.0.0/16 via 172.21.0.2
-
-
-
 openfortivpn $VPN_HOST \
     --trusted-cert=$SERVER_SIGNATURE \
+    -vvvvvvvvvvvvvvvvvvv \
     --cookie="SVPNCOOKIE=${cookie_value}" > mypipe 2>&1 &
 echo "${GREEN}<pre>"
 timeout $TIMEOUT cat mypipe
